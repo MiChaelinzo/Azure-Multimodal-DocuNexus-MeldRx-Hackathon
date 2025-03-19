@@ -1,0 +1,4 @@
+MSH|^~\&|YourHL7Application|YourFacility|MeldRxSystem|MeldRxFacility|202407281030||ADT^A01|MSG00001|P|2.3.1|||AL|NE
+EVN|A01|202407281030||
+PID|1||BellaTest1234||BellaTest^Bella||20070201|F||2028F||||||||||||
+PV1|1|O|||||||||||||||||||||||
