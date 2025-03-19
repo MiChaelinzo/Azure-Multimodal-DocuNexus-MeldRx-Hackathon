@@ -1,0 +1,46 @@
+# Starter pipeline
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+  submodules: true
+
+- name: Set Python Version
+  task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.10' # Match runtime.txt
+    architecture: 'x64'
+
+- name: Install dependencies
+  task: PipAuthenticate@1
+  inputs:
+    artifactFeed: '<YOUR_AZURE_DEVOPS_FEED_GUID>' # Optional: If you have private Python packages in Azure Artifacts
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- name: Zip deploy
+  task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: AzureWebApp@1
+  displayName: 'Azure WebApp Deploy: docunexus-web-app'
+  inputs:
+    azureSubscription: 'Your-Azure-Subscription-Connection' # Configure your Azure Subscription Service Connection in Azure DevOps
+    appType: 'webAppLinux'
+    appName: 'docunexus-web-app' # Replace with your App Service name
+    package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    runtimeStack: 'PYTHON|3.10' # Match runtime.txt
+    startUpCommand: 'streamlit run app.py' # Startup command for Streamlit
+    deploymentMethod: 'zipDeploy'
