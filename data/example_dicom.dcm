@@ -1,0 +1,27 @@
+ import pydicom
+ from pydicom.dataset import Dataset, FileMetaDataset
+ from pydicom.filewriter import dcmwrite
+
+ # File meta info dataset
+ file_meta = FileMetaDataset()
+ file_meta.MediaStorageUID = '1.2.276.0.7230010.3.1.0.1'  # Example UID
+ file_meta.MediaStorageSOPClassUID = pydicom.uid.VerificationSOPClass
+ file_meta.TransferSyntaxUID = pydicom.uid.ExplicitVRLittleEndian
+
+ # Create the Dataset
+ ds = Dataset()
+ ds.file_meta = file_meta
+ ds.is_little_endian = True
+ ds.is_implicit_VR = False
+
+ ds.PatientName = "BellaTest"
+ ds.PatientID = "123456"
+ ds.SOPClassUID = pydicom.uid.VerificationSOPClass
+ ds.SOPInstanceUID = pydicom.uid.generate_uid()
+ ds.StudyDate = '20240728'
+ ds.StudyTime = '120000'
+ ds.Modality = 'DX' # Diagnostic X-Ray
+
+ # Save to file
+ dcmwrite("data/example_dicom.dcm", ds, file_meta)
+ print("Minimal DICOM file created: data/example_dicom.dcm")
