@@ -1,5 +1,9 @@
 #### To login: Username: hackathontestuser Password: hackathontestpassword123
 
+## Demo Application
+
+Check out the demo application [here](https://meldrx.streamlit.app/).
+
 # Azure-Multimodal-DocuNexus-MeldRx-Hackathon
 
 A demo repository for the Azure AI Multimodal Hackathon showcasing the integration of Microsoft Azure developer tools with advanced multimodal medical data analysis. This project demonstrates how DocuNexus AGI-Agent leverages Azure Cognitive Services, Machine Learning, and DevOps to transform raw clinical data into actionable insights.
