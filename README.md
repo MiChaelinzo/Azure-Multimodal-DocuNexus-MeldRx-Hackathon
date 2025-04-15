@@ -1,3 +1,4 @@
+#### To login: Username: hackathontestuser Password: hackathontestpassword123
 
 # Azure-Multimodal-DocuNexus-MeldRx-Hackathon
 
